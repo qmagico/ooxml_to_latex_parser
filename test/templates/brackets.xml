@@ -1,0 +1,17 @@
+<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+<m:d>
+<m:dPr>
+<m:begChr m:val="["/>
+<m:endChr m:val="]"/>
+</m:dPr>
+<m:e>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t xml:space="preserve">2</m:t>
+</m:r>
+</m:e>
+</m:d>
+</m:oMath>
+
