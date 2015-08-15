@@ -29,7 +29,18 @@ class XMLtoLatexParser(sax.ContentHandler):
             'rad': self._parse_start_rad,
             'deg': self._parse_start_deg,
             'den': self._parse_start_den
-
+        }
+        self.tag_end_evaluator = {
+            'sub': self._parse_common_tag_close,
+            'sup': self._parse_common_tag_close,
+            'den': self._parse_common_tag_close,
+            'num': self._parse_common_tag_close,
+            'lim': self._parse_end_lim,
+            'r': self._parse_end_r,
+            'm': self._parse_end_m,
+            'd': self._parse_end_d,
+            'mr': self._parse_end_mr,
+            'deg': self._parse_end_deg
         }
 
     def _find_symbols(self, text):
@@ -56,10 +67,7 @@ class XMLtoLatexParser(sax.ContentHandler):
 
     @staticmethod
     def remove_invalid_tags(xml_string):
-        xml_string = xml_string.replace('<sub />', '')
-        xml_string = xml_string.replace('<sup />', '')
-        xml_string = xml_string.replace('<deg />', '')
-        return xml_string
+        return xml_string.replace('<sub />', '').replace('<sup />', '').replace('<deg />', '')
 
     def _parse_start_m(self, **kwargs):
         if self.insert_before:
@@ -108,6 +116,34 @@ class XMLtoLatexParser(sax.ContentHandler):
     def _parse_start_den(self, **kwargs):
         self.result += '{'
 
+    def _parse_common_tag_close(self):
+        self.result += '}'
+
+    def _parse_end_lim(self):
+        self.result += '}{lim}'
+
+    def _parse_end_r(self):
+        self.result += self.text
+        self.text = ''
+
+    def _parse_end_m(self):
+        self.result += 'end{matrix}'
+
+    def _parse_end_d(self):
+        self.result += self.insert_after
+        self.insert_after = ''
+
+    def _parse_end_mr(self):
+        self.spacing = ''
+        if self.result.endswith("&"):
+            string_list = list(self.result)
+            string_list[-1] = ''
+            self.result = ''.join(string_list)
+        self.result += '\\'
+
+    def _parse_end_deg(self):
+        self.result += ']'
+
     def startElementNS(self, name, tag, attrs):
         tag = name[1]
         function = self.tag_start_evaluator.get(tag)
@@ -116,27 +152,10 @@ class XMLtoLatexParser(sax.ContentHandler):
 
     def endElementNS(self, name, tag):
         tag = name[1]
-        if tag in ('sub', 'sup', 'den', 'num'):
-            self.result += '}'
-        if tag == 'lim':
-            self.result += '}{lim}'
-        if tag == 'r':
-            self.result += self.text
-            self.text = ''
-        if tag == 'm':
-            self.result += 'end{matrix}'
-        if tag == 'd':
-            self.result += self.insert_after
-            self.insert_after = ''
-        if tag == 'mr':
-            self.spacing = ''
-            if self.result.endswith("&"):
-                string_list = list(self.result)
-                string_list[-1] = ''
-                self.result = ''.join(string_list)
-            self.result += '\\'
-        if tag == 'deg':
-            self.result += ']'
+
+        function = self.tag_end_evaluator.get(tag, None)
+        if callable(function):
+            function()
 
     def characters(self, data):
         if data != 'lim':
