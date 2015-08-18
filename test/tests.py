@@ -2,12 +2,11 @@
 
 import unittest
 import sys
-import os
 
 sys.path.append('../src')
 
 from src.ooxml_to_latex import XMLtoLatexParser
-from src.latex_constants import SYMBOLS
+from src.ooxml_to_latex.latex_constants import SYMBOLS
 from utils import read_xml
 
 template_path = 'templates'
