@@ -2,12 +2,11 @@
 
 import unittest
 import sys
-import os
 
 sys.path.append('../src')
 
 from src.ooxml_to_latex import XMLtoLatexParser
-from src.latex_constants import SYMBOLS
+from src.ooxml_to_latex.latex_constants import SYMBOLS
 from utils import read_xml
 
 template_path = 'templates'
@@ -91,7 +90,7 @@ class OoXMLtoLatexTestCase(unittest.TestCase):
         xml_string = read_xml('curly_braces.xml', template_path)
         parsed = XMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
 
-        self.assertEquals('\\left {2\\right }', parsed)
+        self.assertEquals('\\left \\{2\\right \\}', parsed)
 
     def test_div(self):
         xml_string = read_xml('div.xml', template_path)
