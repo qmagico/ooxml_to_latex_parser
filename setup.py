@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='oxml_to_latex',
+    name='ooxml_to_latex',
     version='0.0.1',
     package_dir={'': 'src'},
     packages=["ooxml_to_latex"],
