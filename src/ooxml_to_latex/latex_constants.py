@@ -1,6 +1,7 @@
 # coding: utf-8
 
 SYMBOLS = {
+    u'−': '-',
     '^': '\widehat',
     u'\u20d7': '\\vec',
     'top': '\\overline',
