@@ -3,7 +3,7 @@
 from lxml import sax, etree
 
 
-class XMLtoLatexParser(sax.ContentHandler):
+class OOXMLtoLatexParser(sax.ContentHandler):
 
     def __init__(self, math_symbols=None):
         sax.ContentHandler.__init__(self)
@@ -54,22 +54,43 @@ class XMLtoLatexParser(sax.ContentHandler):
         return text
 
     @classmethod
-    def parse(cls, xml_element_or_string, **parser_kwargs):
+    def parse(cls, xml_string, **parser_kwargs):
+        """
+        Instantiates an object OOXMLtoLatexParser
+         and parse the string given by xml_string
+
+        :param xml_string: An string containing the xml to be
+            parsed
+        :param parser_kwargs:
+            OOXMLtoLatexParser kwargs:
+             - math_symbols: list of math symbols
+               default to latex_constants.SYMBOLS
+        :return: the resulted latex
+        """
         xml_to_latex_parser = cls(**parser_kwargs)
 
-        if isinstance(xml_element_or_string, basestring):
-            element = etree.fromstring(xml_element_or_string)
+        if isinstance(xml_string, basestring):
+            element = etree.fromstring(xml_string)
         else:
-            element = xml_element_or_string
+            raise TypeError("xml string parameter must be str or unicode")
 
         sax.saxify(element, xml_to_latex_parser)
         return xml_to_latex_parser.result
 
     @staticmethod
     def remove_invalid_tags(xml_string):
+        """
+        Remove tags that are self closing and
+        don't have importance for the parser
+        :param xml_string: An string containing the xml
+        :return: the xml without those tags
+        """
         return xml_string.replace('<sub />', '').replace('<sup />', '').replace('<deg />', '')
 
     def _parse_start_m(self, **kwargs):
+        """
+        matrix: http://www.datypic.com/sc/ooxml/e-m_m-1.html
+        """
         if self.insert_before:
             self.result += self.insert_before + '\\begin{matrix}'
             self.insert_before = ''
@@ -77,6 +98,10 @@ class XMLtoLatexParser(sax.ContentHandler):
             self.result += '\\begin{matrix}'
 
     def _parse_start_begchr(self, **kwargs):
+        """
+        Delimiter beginning character
+        http://www.datypic.com/sc/ooxml/e-m_begChr-1.html
+        """
         attr = kwargs['attrs'].getValueByQName("ns00:val")
         if attr == '{':
             # escape {
@@ -84,6 +109,10 @@ class XMLtoLatexParser(sax.ContentHandler):
         self.insert_before = '\\left ' + attr
 
     def _parse_start_endchr(self, **kwargs):
+        """
+        Delimiter Ending Character
+        http://www.datypic.com/sc/ooxml/e-m_endChr-1.html
+        """
         attr = kwargs['attrs'].getValueByQName("ns00:val")
         if attr == '}':
             attr = '\\' + attr
@@ -94,31 +123,67 @@ class XMLtoLatexParser(sax.ContentHandler):
             kwargs['attrs'].getValueByQName("ns00:val"))
 
     def _parse_start_sub(self, **kwargs):
+        """
+        Lower limit (n-ary)
+        http://www.datypic.com/sc/ooxml/e-m_sub-1.html
+        """
         self.result += '_{'
 
     def _parse_start_sup(self, **kwargs):
+        """
+        Upper limit (n-ary)
+        http://www.datypic.com/sc/ooxml/e-m_sup-1.html
+        """
         self.result += '^{'
 
     def _parse_start_f(self, **kwargs):
+        """
+        Fraction Function
+        http://www.datypic.com/sc/ooxml/e-m_f-1.html
+        """
         self.result += '\\frac{'
 
     def _parse_start_e(self, **kwargs):
+        """
+        Base
+        http://www.datypic.com/sc/ooxml/e-m_e-1.html
+        """
         self.result += self.insert_before
         self.insert_before = ''
 
     def _parse_start_mr(self, **kwargs):
+        """
+        Matrix row
+        http://www.datypic.com/sc/ooxml/e-m_mr-1.html
+        """
         self.spacing = "&"
 
     def _parse_start_limlow(self, **kwargs):
+        """
+        Lower-Limit Function
+        http://www.datypic.com/sc/ooxml/e-m_limLow-1.html
+        """
         self.result += '\\underset{'
 
     def _parse_start_rad(self, **kwargs):
+        """
+        Radical Function
+        http://www.datypic.com/sc/ooxml/e-m_rad-1.html
+        """
         self.result += '\sqrt'
 
     def _parse_start_deg(self, **kwargs):
+        """
+        Degree
+        http://www.datypic.com/sc/ooxml/e-m_deg-1.html
+        """
         self.result += '['
 
     def _parse_start_den(self, **kwargs):
+        """
+        Denominator
+        http://www.datypic.com/sc/ooxml/e-m_den-1.html
+        """
         self.result += '{'
 
     def _parse_common_tag_close(self):
