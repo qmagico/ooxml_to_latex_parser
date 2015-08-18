@@ -77,12 +77,17 @@ class XMLtoLatexParser(sax.ContentHandler):
             self.result += '\\begin{matrix}'
 
     def _parse_start_begchr(self, **kwargs):
-        self.insert_before = '\\left ' + \
-            kwargs['attrs'].getValueByQName("ns00:val")
+        attr = kwargs['attrs'].getValueByQName("ns00:val")
+        if attr == '{':
+            # escape {
+            attr = '\\' + attr
+        self.insert_before = '\\left ' + attr
 
     def _parse_start_endchr(self, **kwargs):
-        self.insert_after = '\\right ' + \
-            kwargs['attrs'].getValueByQName("ns00:val")
+        attr = kwargs['attrs'].getValueByQName("ns00:val")
+        if attr == '}':
+            attr = '\\' + attr
+        self.insert_after = '\\right ' + attr
 
     def _parse_attrs(self, **kwargs):
         self.result += self._find_symbols(
@@ -127,7 +132,10 @@ class XMLtoLatexParser(sax.ContentHandler):
         self.text = ''
 
     def _parse_end_m(self):
-        self.result += 'end{matrix}'
+        if self.result.endswith('\\\\'):
+            string_list = list(self.result)
+            self.result = ''.join(string_list[:-2])
+        self.result += '\\end{matrix}'
 
     def _parse_end_d(self):
         self.result += self.insert_after
@@ -139,7 +147,7 @@ class XMLtoLatexParser(sax.ContentHandler):
             string_list = list(self.result)
             string_list[-1] = ''
             self.result = ''.join(string_list)
-        self.result += '\\'
+        self.result += '\\\\'
 
     def _parse_end_deg(self):
         self.result += ']'
@@ -152,7 +160,6 @@ class XMLtoLatexParser(sax.ContentHandler):
 
     def endElementNS(self, name, tag):
         tag = name[1]
-
         function = self.tag_end_evaluator.get(tag, None)
         if callable(function):
             function()

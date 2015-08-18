@@ -91,7 +91,7 @@ class OoXMLtoLatexTestCase(unittest.TestCase):
         xml_string = read_xml('curly_braces.xml', template_path)
         parsed = XMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
 
-        self.assertEquals('\\left {2\\right }', parsed)
+        self.assertEquals('\\left \\{2\\right \\}', parsed)
 
     def test_div(self):
         xml_string = read_xml('div.xml', template_path)
