@@ -45,3 +45,28 @@ latex = OOXMLtoLatexParser.parse(xml)
 print latex
 >>> \mathbb{R}
 ```
+
+# Suported tags
+
+These are the currently supported tags, more are comming!!
+
+Documentation [here](http://www.datypic.com/sc/ooxml/s-shared-math.xsd.html)
+
+* begChr
+* endChr
+* chr
+* pos
+* sub
+* sup
+* f
+* e
+* m
+* mr
+* limLow
+* rad
+* deg
+* den
+* num
+* lim
+* r
+* d
