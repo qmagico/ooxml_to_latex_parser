@@ -53,6 +53,16 @@ class OOXMLtoLatexParser(sax.ContentHandler):
                 text = value + ' '
         return text
 
+    @staticmethod
+    def getattr(attr):
+        try:
+            attr = attr.getValueByQName("ns00:val")
+        except KeyError:
+            attr = attr.getValueByQName("val")
+        else:
+            attr = ''
+        return attr
+
     @classmethod
     def parse(cls, xml_string, **parser_kwargs):
         """
@@ -102,7 +112,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         Delimiter beginning character
         http://www.datypic.com/sc/ooxml/e-m_begChr-1.html
         """
-        attr = kwargs['attrs'].getValueByQName("ns00:val")
+        attr = OOXMLtoLatexParser.getattr(kwargs['attrs'])
         if attr == '{':
             # escape {
             attr = '\\' + attr
@@ -113,14 +123,14 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         Delimiter Ending Character
         http://www.datypic.com/sc/ooxml/e-m_endChr-1.html
         """
-        attr = kwargs['attrs'].getValueByQName("ns00:val")
+        attr = OOXMLtoLatexParser.getattr(kwargs['attrs'])
         if attr == '}':
             attr = '\\' + attr
         self.insert_after = '\\right ' + attr
 
     def _parse_attrs(self, **kwargs):
-        self.result += self._find_symbols(
-            kwargs['attrs'].getValueByQName("ns00:val"))
+        attr = OOXMLtoLatexParser.getattr(kwargs['attrs'])
+        self.result += self._find_symbols(attr)
 
     def _parse_start_sub(self, **kwargs):
         """
