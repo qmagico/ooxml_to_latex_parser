@@ -11,6 +11,67 @@ template_path = 'templates'
 
 class OoXMLtoLatexTestCase(unittest.TestCase):
 
+    def test_cos(self):
+        xml_string = read_xml('cos.xml', template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
+
+        self.assertEquals('cos\\left (2\\right )', parsed)
+
+    def test_fat(self):
+        xml_string = read_xml('fat.xml', template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
+
+        self.assertEquals('6!', parsed)
+
+    def test_sin(self):
+        xml_string = read_xml('sin.xml', template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
+
+        self.assertEquals('sin\\left (10\\right )', parsed)
+
+    def test_pow(self):
+        xml_string = read_xml('pow.xml', template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
+
+        self.assertEquals('e^{7}', parsed)
+
+    def test_log(self):
+        xml_string = read_xml('log.xml', template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
+
+        self.assertEquals('log\\left (2\\right )', parsed)
+
+    def test_exp(self):
+        xml_string = read_xml('exp.xml', template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
+
+        self.assertEquals('exp\\left (4\\right )', parsed)
+
+    def test_radius_of_the_circle(self):
+        xml_string = read_xml('radius_of_the_circle.xml', template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
+
+        self.assertEquals('C=\\pi \\cdot d=2\\cdot \\pi \\cdot r', parsed)
+
+    def test_emc2(self):
+        xml_string = read_xml('emc2.xml', template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
+
+        self.assertEquals('E=mc^{2}', parsed)
+
+    def test_function(self):
+        xml_string = read_xml('function.xml', template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
+
+        self.assertEquals('f\\left (x\\right )=\\Sigma _{i=0}^{\\infty }'
+                          '\\frac{f^{\\left (i\\right )}\\left (0\\right )}{i!}x^{i}', parsed)
+
+    def test_ln(self):
+        xml_string = read_xml('ln.xml', template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
+
+        self.assertEquals('ln\\left (10\\right )', parsed)
+
     def test_frac(self):
         xml_string = read_xml('frac.xml', template_path)
         parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
