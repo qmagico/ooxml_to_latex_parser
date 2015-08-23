@@ -29,7 +29,6 @@ class OoXMLtoLatexTestCase(unittest.TestCase):
 
         self.assertEquals('sin\\left (10\\right )', parsed)
 
-
     def test_pow(self):
         xml_string = read_xml('pow.xml', template_path)
         parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
