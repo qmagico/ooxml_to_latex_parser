@@ -2,14 +2,20 @@
 
 import unittest
 
-from ooxml_to_latex.ooxml_to_latex import OOXMLtoLatexParser
-from ooxml_to_latex.latex_constants import SYMBOLS
+from src.ooxml_to_latex.ooxml_to_latex import OOXMLtoLatexParser
+from src.ooxml_to_latex.latex_constants import SYMBOLS
 from utils import read_xml
 
 template_path = 'templates'
 
 
 class OoXMLtoLatexTestCase(unittest.TestCase):
+
+    def test_multiples_symbols_in_text(self):
+        xml_string = read_xml('multiples_symbols_in_text.xml', template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=SYMBOLS)
+
+        self.assertEquals('\pi n', parsed)
 
     def test_cos(self):
         xml_string = read_xml('cos.xml', template_path)

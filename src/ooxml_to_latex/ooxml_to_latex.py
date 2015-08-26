@@ -44,24 +44,26 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         }
 
     def _find_symbols(self, text):
-        for key, value in self.math_symbols.items():
-            if isinstance(key, str):
-                found = text == key.decode("utf-8")
-            else:
-                found = text == key
-            if found:
-                text = value + ' '
-        return text
+        result = ''
+        for char in text:
+            for key, value in self.math_symbols.items():
+                if isinstance(key, str):
+                    found = char == key.decode("utf-8")
+                else:
+                    found = char == key
+                if found:
+                    char = value + ' '
+            result += char
+        return result
 
     @staticmethod
     def getattr(attr):
+        result = ''
         try:
-            attr = attr.getValueByQName("ns00:val")
+            result = attr.getValueByQName("ns00:val")
         except KeyError:
-            attr = attr.getValueByQName("val")
-        else:
-            attr = ''
-        return attr
+            result = attr.getValueByQName("val")
+        return result
 
     @classmethod
     def parse(cls, xml_string, **parser_kwargs):
