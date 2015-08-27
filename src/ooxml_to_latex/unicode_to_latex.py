@@ -1,6 +1,6 @@
 # coding: utf-8
 
-SYMBOLS = {
+unicode_to_latex = {
     u'−': '-',
     '^': '\widehat',
     u'\u20d7': '\\vec',
