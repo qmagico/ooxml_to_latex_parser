@@ -2,14 +2,20 @@
 
 import unittest
 import os
-from ooxml_to_latex import OOXMLtoLatexParser
-from unicode_to_latex import unicode_to_latex
+from src.ooxml_to_latex import OOXMLtoLatexParser
+from src.ooxml_to_latex import unicode_to_latex
 from utils import read_xml
 
 template_path = os.sep.join(['test', 'fixtures'])
 
 
 class OoXMLtoLatexTestCase(unittest.TestCase):
+
+    def test_dots(self):
+        xml_string = read_xml("dots.xml", template_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
+
+        self.assertEquals(u"\cdots  ", parsed)
 
     def test_multiples_symbols_in_text(self):
         xml_string = read_xml('multiples_symbols_in_text.xml', template_path)

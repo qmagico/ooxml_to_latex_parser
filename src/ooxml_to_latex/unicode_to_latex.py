@@ -1,6 +1,7 @@
 # coding: utf-8
 
 unicode_to_latex = {
+
     u"\u0023": "\\#",
     u"\u0025": "\\%",
     u"\u0027": "\\textquotesingle ",
