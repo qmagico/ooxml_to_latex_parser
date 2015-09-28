@@ -8,13 +8,12 @@ import sys
 import os
 
 PROJECT_PATH = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-2])
-TEST_PATH = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-1])
 sys.stderr = open(os.devnull, 'w')
 if __name__ == '__main__':
 
     sys.path.insert(0, os.path.join(PROJECT_PATH, 'src', 'ooxml_to_latex'))
 
-    tests = unittest.TestLoader().discover(TEST_PATH, "*tests.py")
+    tests = unittest.TestLoader().discover(PROJECT_PATH, "*tests.py")
 
     result = unittest.TextTestRunner().run(tests)
 
