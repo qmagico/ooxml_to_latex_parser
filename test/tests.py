@@ -1,12 +1,12 @@
 # coding: utf-8
 
 import unittest
-
-from src.ooxml_to_latex.ooxml_to_latex import OOXMLtoLatexParser
-from src.ooxml_to_latex.unicode_to_latex import unicode_to_latex
+import os
+from ooxml_to_latex import OOXMLtoLatexParser
+from unicode_to_latex import unicode_to_latex
 from utils import read_xml
 
-template_path = 'templates'
+template_path = os.sep.join(['test', 'fixtures'])
 
 
 class OoXMLtoLatexTestCase(unittest.TestCase):
