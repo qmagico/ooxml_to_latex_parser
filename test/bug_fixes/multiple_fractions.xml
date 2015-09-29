@@ -1,0 +1,192 @@
+<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+<m:sSub>
+<m:sSubPr>
+<m:ctrlPr>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+<w:i/>
+</w:rPr>
+</m:ctrlPr>
+</m:sSubPr>
+<m:e>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>S</m:t>
+</m:r>
+</m:e>
+<m:sub>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>n</m:t>
+</m:r>
+</m:sub>
+</m:sSub>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>:</m:t>
+</m:r>
+<m:f>
+<m:fPr>
+<m:ctrlPr>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+<w:i/>
+</w:rPr>
+</m:ctrlPr>
+</m:fPr>
+<m:num>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>1</m:t>
+</m:r>
+</m:num>
+<m:den>
+<m:rad>
+<m:radPr>
+<m:degHide m:val="1"/>
+<m:ctrlPr>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+<w:i/>
+</w:rPr>
+</m:ctrlPr>
+</m:radPr>
+<m:deg/>
+<m:e>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>1</m:t>
+</m:r>
+</m:e>
+</m:rad>
+</m:den>
+</m:f>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>+</m:t>
+</m:r>
+<m:f>
+<m:fPr>
+<m:ctrlPr>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+<w:i/>
+</w:rPr>
+</m:ctrlPr>
+</m:fPr>
+<m:num>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>1</m:t>
+</m:r>
+</m:num>
+<m:den>
+<m:rad>
+<m:radPr>
+<m:degHide m:val="1"/>
+<m:ctrlPr>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+<w:i/>
+</w:rPr>
+</m:ctrlPr>
+</m:radPr>
+<m:deg/>
+<m:e>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>2</m:t>
+</m:r>
+</m:e>
+</m:rad>
+</m:den>
+</m:f>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>+⋯+</m:t>
+</m:r>
+<m:f>
+<m:fPr>
+<m:ctrlPr>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+<w:i/>
+</w:rPr>
+</m:ctrlPr>
+</m:fPr>
+<m:num>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>1</m:t>
+</m:r>
+</m:num>
+<m:den>
+<m:rad>
+<m:radPr>
+<m:degHide m:val="1"/>
+<m:ctrlPr>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+<w:i/>
+</w:rPr>
+</m:ctrlPr>
+</m:radPr>
+<m:deg/>
+<m:e>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>n</m:t>
+</m:r>
+</m:e>
+</m:rad>
+</m:den>
+</m:f>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>≥</m:t>
+</m:r>
+<m:rad>
+<m:radPr>
+<m:degHide m:val="1"/>
+<m:ctrlPr>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+<w:i/>
+</w:rPr>
+</m:ctrlPr>
+</m:radPr>
+<m:deg/>
+<m:e>
+<m:r>
+<w:rPr>
+<w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+</w:rPr>
+<m:t>n</m:t>
+</m:r>
+</m:e>
+</m:rad>
+</m:oMath>
