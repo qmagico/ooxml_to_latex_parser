@@ -15,6 +15,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         self.previous_tag = ''
         self.spacing = ''
         self.tag_start_evaluator = {
+            'ctrlPr': self._parse_start_ctrlPr,
             'begChr': self._parse_start_begchr,
             'endChr': self._parse_start_endchr,
             'chr': self._parse_attrs,
@@ -31,6 +32,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             'den': self._parse_start_den
         }
         self.tag_end_evaluator = {
+            'ctrlPr': self._parse_end_ctrlPr,
             'sub': self._parse_common_tag_close,
             'sup': self._parse_common_tag_close,
             'den': self._parse_common_tag_close,
@@ -108,6 +110,15 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             self.insert_before = ''
         else:
             self.result += '\\begin{matrix}'
+
+    def _parse_start_ctrlPr(self, **kwargs):
+        if self.previous_tag == "dPr":
+            self.insert_before = "\\left ("
+
+
+    def _parse_end_ctrlPr(self, **kwargs):
+
+        self.insert_after = "\\right )"
 
     def _parse_start_begchr(self, **kwargs):
         """
@@ -234,6 +245,8 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         function = self.tag_start_evaluator.get(tag)
         if callable(function):
             function(attrs=attrs)
+        self.previous_tag = tag
+
 
     def endElementNS(self, name, tag):
         tag = name[1]

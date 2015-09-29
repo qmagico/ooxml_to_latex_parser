@@ -14,11 +14,18 @@ bug_fixes_path = join_path(['bug_fixes'])
 
 class OoXMLtoLatexTestCase(unittest.TestCase):
 
-    def test_test(self):
+
+    def test_insert_parenthesis_in_superscript(self):
+        xml_string = read_xml("insert_parenthesis_in_superscript.xml", bug_fixes_path)
+        parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
+
+        self.assertEquals(u"\\left (a+b\\right )^{n}", parsed)
+
+    def test_multiple_fractions(self):
         xml_string = read_xml("multiple_fractions.xml", bug_fixes_path)
         parsed = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
 
-        self.assertEquals(u"S_{n}:\\frac{1}{\sqrt[]1}+"
+        self.assertMultiLineEqual(u"S_{n}:\\frac{1}{\sqrt[]1}+"
                           u"\\frac{1}{\sqrt[]2}+\cdots  +"
                           u"\\frac{1}{\sqrt[]n}\geq  \sqrt[]n", parsed)
 
