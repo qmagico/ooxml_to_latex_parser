@@ -14,8 +14,10 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         self.text = ''
         self.previous_tag = ''
         self.spacing = ''
+        self.parsed_tags = ''
+
         self.tag_start_evaluator = {
-            'ctrlPr': self._parse_start_ctrlPr,
+            'type': self._parse_start_type,
             'begChr': self._parse_start_begchr,
             'endChr': self._parse_start_endchr,
             'chr': self._parse_attrs,
@@ -32,7 +34,6 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             'den': self._parse_start_den
         }
         self.tag_end_evaluator = {
-            'ctrlPr': self._parse_end_ctrlPr,
             'sub': self._parse_common_tag_close,
             'sup': self._parse_common_tag_close,
             'den': self._parse_common_tag_close,
@@ -59,8 +60,16 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         return result
 
     @staticmethod
+    def _build_tag(tag_name, close=False):
+        """
+        build a tag from his name
+        """
+        if close:
+            return "</{0}>".format(tag_name)
+        return "<{0}>".format(tag_name)
+
+    @staticmethod
     def getattr(attr):
-        result = ''
         try:
             result = attr.getValueByQName("ns00:val")
         except KeyError:
@@ -79,7 +88,6 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             OOXMLtoLatexParser kwargs:
              - math_symbols: list of math symbols
                default to latex_constants.SYMBOLS
-        :return: the resulted latex
         """
         xml_to_latex_parser = cls(**parser_kwargs)
 
@@ -89,7 +97,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             raise TypeError("xml string parameter must be str or unicode")
 
         sax.saxify(element, xml_to_latex_parser)
-        return xml_to_latex_parser.result
+        return xml_to_latex_parser
 
     @staticmethod
     def remove_invalid_tags(xml_string):
@@ -101,6 +109,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         """
         return xml_string.replace('<sub />', '').replace('<sup />', '').replace('<deg />', '')
 
+
     def _parse_start_m(self, **kwargs):
         """
         matrix: http://www.datypic.com/sc/ooxml/e-m_m-1.html
@@ -110,15 +119,6 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             self.insert_before = ''
         else:
             self.result += '\\begin{matrix}'
-
-    def _parse_start_ctrlPr(self, **kwargs):
-        if self.previous_tag == "dPr":
-            self.insert_before = "\\left ("
-
-
-    def _parse_end_ctrlPr(self, **kwargs):
-
-        self.insert_after = "\\right )"
 
     def _parse_start_begchr(self, **kwargs):
         """
@@ -140,6 +140,18 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         if attr == '}':
             attr = '\\' + attr
         self.insert_after = '\\right ' + attr
+
+    def _parse_start_type(self, **kwargs):
+        """
+        when a fraction has properties, the fraction
+        can be a binom. what a fuck
+        """
+
+        if self.previous_tag == "fPr":
+            type = OOXMLtoLatexParser.getattr(kwargs['attrs'])
+            if type == "noBar":
+                self.result = self.result.replace('frac', 'binom', 1)
+
 
     def _parse_attrs(self, **kwargs):
         attr = OOXMLtoLatexParser.getattr(kwargs['attrs'])
@@ -245,6 +257,8 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         function = self.tag_start_evaluator.get(tag)
         if callable(function):
             function(attrs=attrs)
+
+        self.parsed_tags += OOXMLtoLatexParser._build_tag(tag)
         self.previous_tag = tag
 
 
@@ -253,9 +267,15 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         function = self.tag_end_evaluator.get(tag, None)
         if callable(function):
             function()
+        self.parsed_tags += OOXMLtoLatexParser._build_tag(tag, close=True)
 
     def characters(self, data):
         if data != 'lim':
+            # pensar num jeito melhor
+            # if "<dPr><ctrlPr><rPr><rFonts></rFonts><i></i></rPr></ctrlPr>" in self.parsed_tags:
+            #     self.text += '\\left ('
+
             self.text += self._find_symbols(data)
+
             if self.spacing:
                 self.text += self.spacing
