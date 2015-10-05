@@ -1,0 +1,13 @@
+<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+    <m:nary>
+    <m:naryPr>
+        <m:chr m:val="⋂"/>
+        <m:limLoc m:val="undOvr"/>
+        <m:subHide m:val="1"/>
+        <m:supHide m:val="1"/>
+    </m:naryPr>
+    <m:sub/>
+    <m:sup/>
+    </m:nary>
+</m:oMath>
+

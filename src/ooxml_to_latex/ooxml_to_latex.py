@@ -271,10 +271,6 @@ class OOXMLtoLatexParser(sax.ContentHandler):
 
     def characters(self, data):
         if data != 'lim':
-            # pensar num jeito melhor
-            # if "<dPr><ctrlPr><rPr><rFonts></rFonts><i></i></rPr></ctrlPr>" in self.parsed_tags:
-            #     self.text += '\\left ('
-
             self.text += self._find_symbols(data)
 
             if self.spacing:

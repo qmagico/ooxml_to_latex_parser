@@ -14,18 +14,19 @@ bug_fixes_path = join_path(['bug_fixes'])
 
 class OoXMLtoLatexTestCase(unittest.TestCase):
 
-    def test_test(self):
-        xml_string = read_xml("test.xml", bug_fixes_path)
+    def test_sum(self):
+        xml_string = read_xml("sum.xml", bug_fixes_path)
         ooxml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
 
-        print ooxml_to_latex
+        self.assertEquals(ur"\bigcap  _{}^{}l=\bigcap  _{i\in I}^{}S_{i}=\left \{x/ x\in S_{i}para\ cada\ i\in I\right \}", ooxml_to_latex.result)
+
     def test_fractions_without_bar_must_be_a_binom(self):
         xml_string = read_xml("fractions_without_bar_must_be_a_binom.xml", bug_fixes_path)
         ooxml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
 
         self.assertMultiLineEqual(u"\\binom{n}{0}", ooxml_to_latex.result)
 
-
+    @unittest.skip("ta complicado isso")
     def test_insert_parenthesis_in_superscript(self):
         xml_string = read_xml("insert_parenthesis_in_superscript.xml", bug_fixes_path)
         xml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
@@ -40,6 +41,12 @@ class OoXMLtoLatexTestCase(unittest.TestCase):
         self.assertMultiLineEqual(u"S_{n}:\\frac{1}{\sqrt[]1}+"
                           u"\\frac{1}{\sqrt[]2}+\cdots  +"
                           u"\\frac{1}{\sqrt[]n}\geq  \sqrt[]n", ooxml_to_latex.result)
+
+    def test_bigcap(self):
+        xml_string = read_xml("bigcap.xml", fixtures_path)
+        ooxml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
+
+        self.assertEquals(r"\bigcap  _{}^{}", ooxml_to_latex.result)
 
     def test_dots(self):
         xml_string = read_xml("dots.xml", fixtures_path)
