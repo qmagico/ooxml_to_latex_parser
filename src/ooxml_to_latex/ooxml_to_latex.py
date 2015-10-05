@@ -109,7 +109,6 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         """
         return xml_string.replace('<sub />', '').replace('<sup />', '').replace('<deg />', '')
 
-
     def _parse_start_m(self, **kwargs):
         """
         matrix: http://www.datypic.com/sc/ooxml/e-m_m-1.html
@@ -151,7 +150,6 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             type = OOXMLtoLatexParser.getattr(kwargs['attrs'])
             if type == "noBar":
                 self.result = self.result.replace('frac', 'binom', 1)
-
 
     def _parse_attrs(self, **kwargs):
         attr = OOXMLtoLatexParser.getattr(kwargs['attrs'])
@@ -260,7 +258,6 @@ class OOXMLtoLatexParser(sax.ContentHandler):
 
         self.parsed_tags += OOXMLtoLatexParser._build_tag(tag)
         self.previous_tag = tag
-
 
     def endElementNS(self, name, tag):
         tag = name[1]

@@ -7,7 +7,8 @@ import unittest
 import sys
 import os
 
-PROJECT_PATH = os.path.sep.join(os.path.abspath(__file__).split(os.path.sep)[:-2])
+PROJECT_PATH = os.path.sep.join(
+    os.path.abspath(__file__).split(os.path.sep)[:-2])
 sys.stderr = open(os.devnull, 'w')
 if __name__ == '__main__':
 
@@ -22,4 +23,3 @@ if __name__ == '__main__':
 
     if not result.wasSuccessful():
         sys.exit(1)
-
