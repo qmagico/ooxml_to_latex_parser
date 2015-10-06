@@ -1,0 +1,34 @@
+<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+    <m:sSup>
+        <m:sSupPr>
+        </m:sSupPr>
+        <m:e>
+            <m:d>
+                <m:dPr>
+                    <m:ctrlPr>
+                        <w:rPr>
+                            <w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+                            <w:i/>
+                        </w:rPr>
+                    </m:ctrlPr>
+                </m:dPr>
+                <m:e>
+                    <m:r>
+                        <w:rPr>
+                            <w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+                        </w:rPr>
+                        <m:t>a+b</m:t>
+                    </m:r>
+                </m:e>
+            </m:d>
+        </m:e>
+        <m:sup>
+            <m:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Cambria Math" w:eastAsiaTheme="minorEastAsia" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>n</m:t>
+            </m:r>
+        </m:sup>
+    </m:sSup>
+</m:oMath>
