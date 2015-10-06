@@ -59,6 +59,16 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             result += char
         return result
 
+    def should_insert_parenthesis(self):
+        "windows sucks"
+
+        parenthesis_weird_pattern = "<e><d><dPr><ctrlPr><rPr><rFonts></rFonts><i></i></rPr></ctrlPr></dPr>"
+
+        if parenthesis_weird_pattern in self.parsed_tags:
+            self.parsed_tags = self.parsed_tags.replace(parenthesis_weird_pattern, "")
+            return True
+        return False
+
     @staticmethod
     def _build_tag(tag_name, close=False):
         """
@@ -251,23 +261,28 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         self.result += ']'
 
     def startElementNS(self, name, tag, attrs):
-        tag = name[1]
-        function = self.tag_start_evaluator.get(tag)
+        if self.should_insert_parenthesis():
+            self.insert_before = "\\left ("
+            self.insert_after = "\\right )"
+
+        tag_name = name[1]
+        function = self.tag_start_evaluator.get(tag_name)
         if callable(function):
             function(attrs=attrs)
 
-        self.parsed_tags += OOXMLtoLatexParser._build_tag(tag)
-        self.previous_tag = tag
+        self.parsed_tags += OOXMLtoLatexParser._build_tag(tag_name)
+        self.previous_tag = tag_name
 
     def endElementNS(self, name, tag):
-        tag = name[1]
-        function = self.tag_end_evaluator.get(tag, None)
+        tag_name = name[1]
+        function = self.tag_end_evaluator.get(tag_name, None)
         if callable(function):
             function()
-        self.parsed_tags += OOXMLtoLatexParser._build_tag(tag, close=True)
+        self.parsed_tags += OOXMLtoLatexParser._build_tag(tag_name, close=True)
 
     def characters(self, data):
         if data != 'lim':
+
             self.text += self._find_symbols(data)
 
             if self.spacing:

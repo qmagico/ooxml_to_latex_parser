@@ -19,7 +19,8 @@ class OoXMLtoLatexTestCase(unittest.TestCase):
         ooxml_to_latex = OOXMLtoLatexParser.parse(
             xml_string, math_symbols=unicode_to_latex)
 
-        self.assertEquals("", ooxml_to_latex.result)
+        self.assertEquals('\\left (\\bigcup  _{i\\in I}^{}S_{i}\\right )^{c}=\\bigcap'
+                          '  _{i\\in I}^{}\\left (S_{i}^{c}\\right )', ooxml_to_latex.result)
 
     def test_sum(self):
         xml_string = read_xml("sum.xml", bug_fixes_path)
@@ -27,7 +28,8 @@ class OoXMLtoLatexTestCase(unittest.TestCase):
             xml_string, math_symbols=unicode_to_latex)
 
         self.assertEquals(
-            ur"\bigcap  _{}^{}l=\bigcap  _{i\in I}^{}S_{i}=\left \{x/ x\in S_{i}para\ cada\ i\in I\right \}", ooxml_to_latex.result)
+            ur"\bigcap  _{}^{}l=\bigcap  _{i\in I}^{}S_{i}=\left "
+            ur"\{x/ x\in S_{i}para\ cada\ i\in I\right \}", ooxml_to_latex.result)
 
     def test_fractions_without_bar_must_be_a_binom(self):
         xml_string = read_xml(
@@ -37,7 +39,6 @@ class OoXMLtoLatexTestCase(unittest.TestCase):
 
         self.assertMultiLineEqual(u"\\binom{n}{0}", ooxml_to_latex.result)
 
-    @unittest.skip("ta complicado isso")
     def test_insert_parenthesis_in_superscript(self):
         xml_string = read_xml(
             "insert_parenthesis_in_superscript.xml", bug_fixes_path)
@@ -321,14 +322,14 @@ class OoXMLtoLatexTestCase(unittest.TestCase):
         ooxml_to_latex = OOXMLtoLatexParser.parse(
             xml_string, math_symbols=unicode_to_latex)
 
-        self.assertEquals('3\\not = 2', ooxml_to_latex.result)
+        self.assertEquals('3\\ne 2', ooxml_to_latex.result)
 
     def test_ni(self):
         xml_string = read_xml('ni.xml', fixtures_path)
         ooxml_to_latex = OOXMLtoLatexParser.parse(
             xml_string, math_symbols=unicode_to_latex)
 
-        self.assertEquals('2\\ni 2', ooxml_to_latex.result)
+        self.assertEquals('2\\ni  2', ooxml_to_latex.result)
 
     def test_notin(self):
         xml_string = read_xml('notin.xml', fixtures_path)
