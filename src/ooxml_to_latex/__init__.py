@@ -7,3 +7,5 @@ __all__ = [
     'OOXMLtoLatexParser',
     'unicode_to_latex'
 ]
+
+__version__ = "v0.0.2"
