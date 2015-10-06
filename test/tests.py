@@ -14,6 +14,13 @@ bug_fixes_path = join_path(['bug_fixes'])
 
 class OoXMLtoLatexTestCase(unittest.TestCase):
 
+    def test_bigcup_bug_fix(self):
+        xml_string = read_xml("bigcup.xml", bug_fixes_path)
+        ooxml_to_latex = OOXMLtoLatexParser.parse(
+            xml_string, math_symbols=unicode_to_latex)
+
+        self.assertEquals("", ooxml_to_latex.result)
+
     def test_sum(self):
         xml_string = read_xml("sum.xml", bug_fixes_path)
         ooxml_to_latex = OOXMLtoLatexParser.parse(
