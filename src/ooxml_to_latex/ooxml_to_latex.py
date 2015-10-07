@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from lxml import sax, etree
+import utils
 
 
 class OOXMLtoLatexParser(sax.ContentHandler):
@@ -15,6 +16,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         self.previous_tag = ''
         self.spacing = ''
         self.parsed_tags = ''
+        self.is_underset = False
 
         self.tag_start_evaluator = {
             'type': self._parse_start_type,
@@ -28,17 +30,19 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             'e': self._parse_start_e,
             'm': self._parse_start_m,
             'mr': self._parse_start_mr,
+            'lim': self._parse_start_lim,
             'limLow': self._parse_start_limlow,
             'rad': self._parse_start_rad,
             'deg': self._parse_start_deg,
             'den': self._parse_start_den
         }
         self.tag_end_evaluator = {
+            'lim': self._parse_end_lim,
+            'limLow': self._parse_end_limlow,
             'sub': self._parse_common_tag_close,
             'sup': self._parse_common_tag_close,
             'den': self._parse_common_tag_close,
             'num': self._parse_common_tag_close,
-            'lim': self._parse_end_lim,
             'r': self._parse_end_r,
             'm': self._parse_end_m,
             'd': self._parse_end_d,
@@ -99,6 +103,8 @@ class OOXMLtoLatexParser(sax.ContentHandler):
              - math_symbols: list of math symbols
                default to latex_constants.SYMBOLS
         """
+
+        xml_string = OOXMLtoLatexParser.change_xml_double_open_tag_to_left_arrow(xml_string)
         xml_to_latex_parser = cls(**parser_kwargs)
 
         if isinstance(xml_string, basestring):
@@ -110,14 +116,9 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         return xml_to_latex_parser
 
     @staticmethod
-    def remove_invalid_tags(xml_string):
-        """
-        Remove tags that are self closing and
-        don't have importance for the parser
-        :param xml_string: An string containing the xml
-        :return: the xml without those tags
-        """
-        return xml_string.replace('<sub />', '').replace('<sup />', '').replace('<deg />', '')
+    def change_xml_double_open_tag_to_left_arrow(xml_string):
+        return xml_string.replace(r"<<", "left<")
+
 
     def _parse_start_m(self, **kwargs):
         """
@@ -135,9 +136,9 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         http://www.datypic.com/sc/ooxml/e-m_begChr-1.html
         """
         attr = OOXMLtoLatexParser.getattr(kwargs['attrs'])
-        if attr == '{':
-            # escape {
-            attr = '\\' + attr
+        # if attr == '{':
+        #     # escape {
+        #     attr = '\\' + attr
         self.insert_before = '\\left ' + attr
 
     def _parse_start_endchr(self, **kwargs):
@@ -146,8 +147,8 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         http://www.datypic.com/sc/ooxml/e-m_endChr-1.html
         """
         attr = OOXMLtoLatexParser.getattr(kwargs['attrs'])
-        if attr == '}':
-            attr = '\\' + attr
+        # if attr == '}':
+        #     attr = '\\' + attr
         self.insert_after = '\\right ' + attr
 
     def _parse_start_type(self, **kwargs):
@@ -201,12 +202,16 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         """
         self.spacing = "&"
 
+    def _parse_end_limlow(self, **kwargs):
+        if not self.is_underset:
+            self.result += "}"
+
     def _parse_start_limlow(self, **kwargs):
         """
         Lower-Limit Function
         http://www.datypic.com/sc/ooxml/e-m_limLow-1.html
         """
-        self.result += '\\underset{'
+        self.result += '\\underbrace{'
 
     def _parse_start_rad(self, **kwargs):
         """
@@ -232,8 +237,13 @@ class OOXMLtoLatexParser(sax.ContentHandler):
     def _parse_common_tag_close(self):
         self.result += '}'
 
+    def _parse_start_lim(self, **kwargs):
+        if not self.is_underset:
+            self.result += '}_{'
+
     def _parse_end_lim(self):
-        self.result += '}{lim}'
+        if self.is_underset:
+            self.result += "{lim}"
 
     def _parse_end_r(self):
         self.result += self.text
@@ -281,9 +291,17 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         self.parsed_tags += OOXMLtoLatexParser._build_tag(tag_name, close=True)
 
     def characters(self, data):
-        if data != 'lim':
 
-            self.text += self._find_symbols(data)
+        if data == 'lim':
+            self.is_underset = True
+            self.result = utils.replace_last_substring(self.result, "\underbrace{", "\underset")
+        else:
+            if data.strip() == r"left":
+                self.text = r"<"
+            else:
+                self.text += "{\ "
+                self.text += self._find_symbols(data)
+                self.text += "}"
 
             if self.spacing:
                 self.text += self.spacing
