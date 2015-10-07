@@ -136,9 +136,9 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         http://www.datypic.com/sc/ooxml/e-m_begChr-1.html
         """
         attr = OOXMLtoLatexParser.getattr(kwargs['attrs'])
-        # if attr == '{':
-        #     # escape {
-        #     attr = '\\' + attr
+        if attr == '{':
+            # escape {
+            attr = '\\' + attr
         self.insert_before = '\\left ' + attr
 
     def _parse_start_endchr(self, **kwargs):
@@ -147,8 +147,8 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         http://www.datypic.com/sc/ooxml/e-m_endChr-1.html
         """
         attr = OOXMLtoLatexParser.getattr(kwargs['attrs'])
-        # if attr == '}':
-        #     attr = '\\' + attr
+        if attr == '}':
+            attr = '\\' + attr
         self.insert_after = '\\right ' + attr
 
     def _parse_start_type(self, **kwargs):

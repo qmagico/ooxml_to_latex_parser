@@ -14,13 +14,18 @@ bug_fixes_path = join_path(['bug_fixes'])
 
 class OoXMLtoLatexTestCase(unittest.TestCase):
 
+    def test_sup_does_not_work(self):
+        xml_string = read_xml("sup_does_not_work.xml", bug_fixes_path)
+        ooxml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
+
+        self.assertMultiLineEqual(r'{\ l=}\left \{{\ S}_{{\ k}}\right \}_{{\ k=1}}^{{\ 5}}', ooxml_to_latex.result)
+
     def test_underset_is_not_a_limit(self):
         xml_string = read_xml("underset_is_not_limit.xml", bug_fixes_path)
         ooxml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
 
         self.assertMultiLineEqual(r'\underbrace{{\ 7}^{{\ k}}}_{{\ n\ digitos}}<{\ 7}^{{\ k+1}}{\ =7}{\ 7}^'
                           r'{{\ k}}<\underbrace{{\ 10}{\ 7}^{{\ k}}}_{{\ n+1\ digitos}}', ooxml_to_latex.result)
-
 
     def test_bigcup_bug_fix(self):
         xml_string = read_xml("bigcup.xml", bug_fixes_path)
@@ -36,7 +41,7 @@ class OoXMLtoLatexTestCase(unittest.TestCase):
             xml_string, math_symbols=unicode_to_latex)
 
         self.assertEquals(r"\bigcap  _{}^{}{\ l=}\bigcap  _{{\ i\in I}}^{}{\ S}_{{\ i}}{\ =}"
-                          r"\left {{\ x/ x\in }{\ S}_{{\ i}}{\ para\ cada\ i\in I}\right }", ooxml_to_latex.result)
+                          r"\left \{{\ x/ x\in }{\ S}_{{\ i}}{\ para\ cada\ i\in I}\right \}", ooxml_to_latex.result)
 
     def test_fractions_without_bar_must_be_a_binom(self):
         xml_string = read_xml(
@@ -253,7 +258,7 @@ class OoXMLtoLatexTestCase(unittest.TestCase):
         ooxml_to_latex = OOXMLtoLatexParser.parse(
             xml_string, math_symbols=unicode_to_latex)
 
-        self.assertEquals(r'\left {{\ 2}\right }', ooxml_to_latex.result)
+        self.assertEquals(r'\left \{{\ 2}\right \}', ooxml_to_latex.result)
 
     def test_div(self):
         xml_string = read_xml('div.xml', fixtures_path)
