@@ -1,8 +1,11 @@
+# coding: utf-8
+
 from setuptools import setup
+from src import ooxml_to_latex
 
 setup(
     name='ooxml_to_latex',
-    version='0.0.1',
+    version=ooxml_to_latex.__version__,
     package_dir={'': 'src'},
     packages=["ooxml_to_latex"],
     url='https://github.com/qmagico/oxml_to_latex_parser',
