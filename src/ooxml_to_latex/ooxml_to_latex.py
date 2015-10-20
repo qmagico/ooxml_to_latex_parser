@@ -75,9 +75,8 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         return False
 
     @classmethod
-    def _remove_self_closing_parenthesis(cls, tag_name, xml_string):
-        self_closing_tag = cls._build_tag(tag_name, self_closing=True)
-        return xml_string.replace(self_closing_tag, "")
+    def _remove_self_closing_tags(cls, xml_string):
+        return xml_string.replace("<m:deg/>", "").replace("<deg/>", "")
 
     @staticmethod
     def _build_tag(tag_name, close=False, self_closing=False):
@@ -113,7 +112,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         """
 
         xml_string = OOXMLtoLatexParser.change_xml_double_open_tag_to_left_arrow(xml_string)
-        xml_string = xml_string.replace("<m:deg/>", '')
+        xml_string = OOXMLtoLatexParser._remove_self_closing_tags(xml_string)
         xml_to_latex_parser = cls(**parser_kwargs)
 
         if isinstance(xml_string, basestring):
