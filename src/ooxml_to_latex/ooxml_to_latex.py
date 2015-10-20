@@ -43,6 +43,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             'sup': self._parse_common_tag_close,
             'den': self._parse_common_tag_close,
             'num': self._parse_common_tag_close,
+            'rad': self._parse_common_tag_close,
             'r': self._parse_end_r,
             'm': self._parse_end_m,
             'd': self._parse_end_d,
@@ -73,11 +74,18 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             return True
         return False
 
+    @classmethod
+    def _remove_self_closing_parenthesis(cls, tag_name, xml_string):
+        self_closing_tag = cls._build_tag(tag_name, self_closing=True)
+        return xml_string.replace(self_closing_tag, "")
+
     @staticmethod
-    def _build_tag(tag_name, close=False):
+    def _build_tag(tag_name, close=False, self_closing=False):
         """
         build a tag from his name
         """
+        if self_closing:
+            return "<{0}/>".format(tag_name)
         if close:
             return "</{0}>".format(tag_name)
         return "<{0}>".format(tag_name)
@@ -105,6 +113,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         """
 
         xml_string = OOXMLtoLatexParser.change_xml_double_open_tag_to_left_arrow(xml_string)
+        xml_string = xml_string.replace("<m:deg/>", '')
         xml_to_latex_parser = cls(**parser_kwargs)
 
         if isinstance(xml_string, basestring):
@@ -218,7 +227,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         Radical Function
         http://www.datypic.com/sc/ooxml/e-m_rad-1.html
         """
-        self.result += '\sqrt'
+        self.result += '\sqrt{'
 
     def _parse_start_deg(self, **kwargs):
         """

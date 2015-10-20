@@ -14,6 +14,12 @@ bug_fixes_path = join_path(['bug_fixes'])
 
 class OoXMLtoLatexTestCase(unittest.TestCase):
 
+    def test_multiple_squares(self):
+        xml_string = read_xml("multiple_squares.xml", bug_fixes_path)
+        ooxml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
+
+        self.assertMultiLineEqual(r'\sqrt{\sqrt{\sqrt{{\ 100}}{\ +}\sqrt{{\ 36}}}}', ooxml_to_latex.result)
+
     def test_sup_does_not_work(self):
         xml_string = read_xml("sup_does_not_work.xml", bug_fixes_path)
         ooxml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
@@ -64,9 +70,9 @@ class OoXMLtoLatexTestCase(unittest.TestCase):
         ooxml_to_latex = OOXMLtoLatexParser.parse(
             xml_string, math_symbols=unicode_to_latex)
 
-        self.assertMultiLineEqual(r"{\ S}_{{\ n}}{\ :}\frac{{\ 1}}{\sqrt[]{\ 1}}{\ +}\frac{{\ 1}}"
-                                  r"{\sqrt[]{\ 2}}{\ +\cdots  +}\frac{{\ 1}}{\sqrt[]"
-                                  r"{\ n}}{\ \geq  }\sqrt[]{\ n}", ooxml_to_latex.result)
+        self.assertMultiLineEqual(r"{\ S}_{{\ n}}{\ :}\frac{{\ 1}}{\sqrt{{\ 1}}}{\ +}\frac{{\ 1}}"
+                                  r"{\sqrt{{\ 2}}}{\ +\cdots  +}\frac{{\ 1}}{\sqrt"
+                                  r"{{\ n}}}{\ \geq  }\sqrt{{\ n}}", ooxml_to_latex.result)
 
     def test_lim(self):
         xml_string = read_xml("lim.xml", fixtures_path)

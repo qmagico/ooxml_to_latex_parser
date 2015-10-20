@@ -1,0 +1,90 @@
+<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+    <m:rad>
+        <m:radPr>
+            <m:degHide m:val="1"/>
+            <m:ctrlPr>
+                <w:rPr>
+                    <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math" w:cs="Arial"/>
+                    <w:i/>
+                    <w:sz w:val="22"/>
+                    <w:szCs w:val="22"/>
+                </w:rPr>
+            </m:ctrlPr>
+        </m:radPr>
+        <m:deg/>
+        <m:e>
+            <m:rad>
+                <m:radPr>
+                    <m:degHide m:val="1"/>
+                    <m:ctrlPr>
+                        <w:rPr>
+                            <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math" w:cs="Arial"/>
+                            <w:i/>
+                            <w:sz w:val="22"/>
+                            <w:szCs w:val="22"/>
+                        </w:rPr>
+                    </m:ctrlPr>
+                </m:radPr>
+                <m:deg/>
+                <m:e>
+                    <m:rad>
+                        <m:radPr>
+                            <m:degHide m:val="1"/>
+                            <m:ctrlPr>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math" w:cs="Arial"/>
+                                    <w:i/>
+                                    <w:sz w:val="22"/>
+                                    <w:szCs w:val="22"/>
+                                </w:rPr>
+                            </m:ctrlPr>
+                        </m:radPr>
+                        <m:deg/>
+                        <m:e>
+                            <m:r>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math" w:cs="Arial"/>
+                                    <w:sz w:val="22"/>
+                                    <w:szCs w:val="22"/>
+                                </w:rPr>
+                                <m:t>100</m:t>
+                            </m:r>
+                        </m:e>
+                    </m:rad>
+                    <m:r>
+                        <w:rPr>
+                            <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math" w:cs="Arial"/>
+                            <w:sz w:val="22"/>
+                            <w:szCs w:val="22"/>
+                        </w:rPr>
+                        <m:t>+</m:t>
+                    </m:r>
+                    <m:rad>
+                        <m:radPr>
+                            <m:degHide m:val="1"/>
+                            <m:ctrlPr>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math" w:cs="Arial"/>
+                                    <w:i/>
+                                    <w:sz w:val="22"/>
+                                    <w:szCs w:val="22"/>
+                                </w:rPr>
+                            </m:ctrlPr>
+                        </m:radPr>
+                        <m:deg/>
+                        <m:e>
+                            <m:r>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math" w:cs="Arial"/>
+                                    <w:sz w:val="22"/>
+                                    <w:szCs w:val="22"/>
+                                </w:rPr>
+                                <m:t>36</m:t>
+                            </m:r>
+                        </m:e>
+                    </m:rad>
+                </m:e>
+            </m:rad>
+        </m:e>
+    </m:rad>
+</m:oMath>
