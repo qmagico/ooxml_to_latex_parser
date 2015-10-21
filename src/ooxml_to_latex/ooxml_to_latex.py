@@ -76,7 +76,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
 
     @classmethod
     def _remove_self_closing_tags(cls, xml_string):
-        return xml_string.replace("<m:deg/>", "").replace("<deg/>", "")
+        return xml_string.replace("<m:deg/>", "").replace("<deg />", "")
 
     @staticmethod
     def _build_tag(tag_name, close=False, self_closing=False):
