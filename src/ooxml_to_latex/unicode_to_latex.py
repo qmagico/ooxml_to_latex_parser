@@ -1,7 +1,14 @@
 # coding: utf-8
 
 unicode_to_latex = {
-
+    u'×': "x",
+    u'∕': "/",
+    u'∛': r"\sqrt[3]{}",
+    u'∜': r"\sqrt[4]{}",
+    u'℉': r'\degree F',
+    u'℃': r'\degree C',
+    u"⟨": r'\langle',
+    u"⟩": r"\rangle",
     u"\u0023": "\\#",
     u"\u0025": "\\%",
     u"\u005E": "\\^{}",
@@ -24,7 +31,7 @@ unicode_to_latex = {
     u"\u00AD": "\\-",
     u"\u00AE": "\\textregistered ",
     u"\u00AF": "\\textasciimacron ",
-    u"\u00B0": "\\textdegree ",
+    u"\u00B0": r"\degree",
     u"\u00B1": "\\pm ",
     u"\u00B2": "{^2}",
     u"\u00B3": "{^3}",
@@ -374,7 +381,7 @@ unicode_to_latex = {
     u"\u03B5": "\\epsilon ",
     u"\u03B6": "\\zeta ",
     u"\u03B7": "\\eta ",
-    u"\u03B8": "\\texttheta ",
+    u"\u03B8": "\\theta ",
     u"\u03B9": "\\iota ",
     u"\u03BA": "\\kappa ",
     u"\u03BB": "\\lambda ",
@@ -397,7 +404,7 @@ unicode_to_latex = {
     u"\u03CD": "\\acute{\\upsilon}",
     u"\u03CE": "\\acute{\\omega}",
     u"\u03D0": "\\Pisymbol{ppi022}{87}",
-    u"\u03D1": "\\textvartheta ",
+    u"\u03D1": r"\vartheta ",
     u"\u03D2": "\\Upsilon ",
     u"\u03D5": "\\phi ",
     u"\u03D6": "\\varpi ",
@@ -671,6 +678,7 @@ unicode_to_latex = {
     u"\u2131": "\\mathscr{F}",
     u"\u2133": "\\mathscr{M}",
     u"\u2134": "\\mathscr{o}",
+    u"\u2146": "\\mathscr{d}",
     u"\u2135": "\\aleph ",
     u"\u2136": "\\beth ",
     u"\u2137": "\\gimel ",
@@ -2452,5 +2460,6 @@ unicode_to_latex = {
     'ℝ': '\mathbb{R}',
     'ℚ': '\mathbb{Q}',
     '∞': '\infty',
-    '∫': '\int'
+    '∫': '\int',
+    '&lt;': '<',
 }
