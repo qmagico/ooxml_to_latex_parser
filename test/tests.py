@@ -17,6 +17,11 @@ class OoXMLtoLatexTests(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
+    def test_square3(self):
+        xml_string = read_xml("square_3.xml", bug_fixes_path)
+        ooxml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
+        self.assertMultiLineEqual(r'\sqrt[{\ 3}]{{\ 1}}', ooxml_to_latex.result)
+
     @unittest.skip("handle nested tags with same name")
     def test_laplaciano_em_cartesiano_e_esfera(self):
         xml_string = read_xml("laplaciano_em_cartesiano_e_esfera.xml", bug_fixes_path)
@@ -82,15 +87,17 @@ class OoXMLtoLatexTests(unittest.TestCase):
     def test_expansao_de_uma_soma(self):
         xml_string = read_xml("expansao_de_uma_soma.xml", bug_fixes_path)
         ooxml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
-        self.assertMultiLineEqual(r'\left ({\ 1+x}\right )^{{\ n}}{\ =1+}\frac{{\ nx}}{{\ 1!}}{\ +}\frac{{\ n}\left '
-                                  r'({\ n-1}\right ){\ x}^{{\ 2}}}{{\ 2!}}{\ +\ldots  }',
+        self.assertMultiLineEqual(r'\left ({\ 1+x}\right )^{{\ n}}{\ =1+}\frac{{\ nx}}{{\ 1\text{!} }}{\ +}'
+                                  r'\frac{{\ n}\left '
+                                  r'({\ n-1}\right ){\ x}^{{\ 2}}}{{\ 2\text{!} }}{\ +\ldots  }',
                                   ooxml_to_latex.result)
 
     def test_expansao_de_taylor(self):
         xml_string = read_xml("expansao_de_taylor.xml", bug_fixes_path)
         ooxml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
-        self.assertMultiLineEqual(r'{\ e}^{{\ x}}{\ =1+}\frac{{\ x}}{{\ 1!}}{\ +}\frac{{\ x}^{{\ 2}}}{{\ 2!}}{\ +}'
-                                  r'\frac{{\ x}^{{\ 3}}}{{\ 3!}}{\ +\ldots  ,}{\ -\infty <x<\infty }',
+        self.assertMultiLineEqual(r'{\ e}^{{\ x}}{\ =1+}\frac{{\ x}}{{\ 1\text{!} }}{\ +}\frac{{\ x}^{{\ 2}}}{{\ '
+                                  r'2\text{!} }}{\ +}'
+                                  r'\frac{{\ x}^{{\ 3}}}{{\ 3\text{!} }}{\ +\ldots  ,}{\ -\infty <x<\infty }',
                                   ooxml_to_latex.result)
 
     def test_multiple_squares(self):
@@ -195,7 +202,7 @@ class OoXMLtoLatexTests(unittest.TestCase):
         ooxml_to_latex = OOXMLtoLatexParser.parse(
             xml_string, math_symbols=unicode_to_latex)
 
-        self.assertEquals(r'{\ 6}{\ !}', ooxml_to_latex.result)
+        self.assertEquals(r'{\ 6}{\ \text{!} }', ooxml_to_latex.result)
 
     def test_sin(self):
         xml_string = read_xml('sin.xml', fixtures_path)
@@ -245,9 +252,9 @@ class OoXMLtoLatexTests(unittest.TestCase):
         ooxml_to_latex = OOXMLtoLatexParser.parse(
             xml_string, math_symbols=unicode_to_latex)
 
-        self.assertEquals(r'{\ f}\left ({\ x}\right ){\ =}\sum  _{{\ i}{\ =}{\ 0}}^{{\ '
+        self.assertMultiLineEqual(r'{\ f}\left ({\ x}\right ){\ =}\sum  _{{\ i}{\ =}{\ 0}}^{{\ '
                           r'\infty }}\frac{{\ f}^{\left ({\ i}\right )}\left ({\ 0}\right )}{{\ i}'
-                          r'{\ !}}{\ x}^{{\ i}}', ooxml_to_latex.result)
+                          r'{\ \text{!} }}{\ x}^{{\ i}}', ooxml_to_latex.result)
 
     def test_ln(self):
         xml_string = read_xml('ln.xml', fixtures_path)
