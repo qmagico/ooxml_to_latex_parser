@@ -1,7 +1,7 @@
 # coding: utf-8
 
 unicode_to_latex = {
-    u"!": "\text{!}",
+    u"!": r"\text{!}",
     u'×': r"\times",
     u'∕': "/",
     u'∛': r"\sqrt[3]{}",
