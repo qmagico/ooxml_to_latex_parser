@@ -260,7 +260,8 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         Radical Function
         http://www.datypic.com/sc/ooxml/e-m_rad-1.html
         """
-        self.result += '\sqrt{'
+        self.result += '\sqrt'
+        self.insert_before = "{"
 
     def _parse_start_deg(self, **kwargs):
         """

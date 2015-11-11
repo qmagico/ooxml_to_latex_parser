@@ -1,7 +1,8 @@
 # coding: utf-8
 
 unicode_to_latex = {
-    u'×': "x",
+    u"!": "\text{!}",
+    u'×': r"\times",
     u'∕': "/",
     u'∛': r"\sqrt[3]{}",
     u'∜': r"\sqrt[4]{}",
@@ -27,7 +28,7 @@ unicode_to_latex = {
     u"\u00A9": "\\textcopyright ",
     u"\u00AA": "\\textordfeminine ",
     u"\u00AB": "\\guillemotleft ",
-    u"\u00AC": "\\lnot ",
+    u"\u00AC": "\\neg ",
     u"\u00AD": "\\-",
     u"\u00AE": "\\textregistered ",
     u"\u00AF": "\\textasciimacron ",

@@ -17,6 +17,11 @@ class OoXMLtoLatexTests(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
+    def test_square3(self):
+        xml_string = read_xml("square_3.xml", bug_fixes_path)
+        ooxml_to_latex = OOXMLtoLatexParser.parse(xml_string, math_symbols=unicode_to_latex)
+        self.assertMultiLineEqual(r'\sqrt[{\ 3}]{{\ 1}}', ooxml_to_latex.result)
+
     @unittest.skip("handle nested tags with same name")
     def test_laplaciano_em_cartesiano_e_esfera(self):
         xml_string = read_xml("laplaciano_em_cartesiano_e_esfera.xml", bug_fixes_path)
